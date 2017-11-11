@@ -8,7 +8,7 @@ import scala.concurrent.Future
 class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
   var enrolledCourses: List[Course] = List()
 
-  val siteInfo: Future[JsValue] = Client.getSiteInfo().asInstanceOf[Future[JsValue]]
+  val siteInfo: Future[JsValue] = Client.getSiteInfo(token)
 
   siteInfo.onComplete {
     case Success(s) => {
@@ -21,6 +21,6 @@ class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
     val username= value("username").as[String]
     val userid = value("userid").as[Int]
 
-    val coursesInfo: Future[JsValue] = Client.getUsersCourses(userid).asInstanceOf[Future[JsValue]]
+    val coursesInfo: Future[JsValue] = Client.getUsersCourses(token, userid)
   }
 }

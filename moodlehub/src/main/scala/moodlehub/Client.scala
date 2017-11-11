@@ -38,13 +38,13 @@ object Client {
     system.terminate()
   }
 
-  def getSiteInfo(implicit token: String): Future[JsValue] =
+  def getSiteInfo(token: String): Future[JsValue] =
     callFunction(token, GET_SITE_INFO_FUN).map { s => Json.parse(s) }
 
-  def getUsersCourses(implicit token: String, userId: Int): Future[JsValue] =
+  def getUsersCourses(token: String, userId: Int): Future[JsValue] =
     callFunction(token, GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)).map { s => Json.parse(s) }
 
-  def getContents(implicit token: String, courseId: Int): Future[JsValue] =
+  def getContents(token: String, courseId: Int): Future[JsValue] =
     callFunction(token, GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)).map { s => Json.parse(s) }
 
   private def callFunction(token: String, name: String, args: Map[String, String] = Map()): Future[String] = {

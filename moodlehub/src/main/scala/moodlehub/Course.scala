@@ -2,8 +2,6 @@ package moodlehub
 
 class Course(name: String, courseId: Int) {
 
-
-
 }
 
 object Course {

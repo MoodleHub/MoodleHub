@@ -38,16 +38,16 @@ object Client {
     system.terminate()
   }
 
-  def getSiteInfo(token: String): Future[JsValue] =
-    callFunction(token, GET_SITE_INFO_FUN).map { s => Json.parse(s) }
+  def getSiteInfo(implicit token: Token): Future[JsValue] =
+    callFunction(GET_SITE_INFO_FUN) map Json.parse
 
-  def getUsersCourses(token: String, userId: Int): Future[JsValue] =
-    callFunction(token, GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)).map { s => Json.parse(s) }
+  def getUsersCourses(userId: Int)(implicit token: Token): Future[JsValue] =
+    callFunction(GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)) map Json.parse
 
-  def getContents(token: String, courseId: Int): Future[JsValue] =
-    callFunction(token, GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)).map { s => Json.parse(s) }
+  def getContents(courseId: Int)(implicit token: Token): Future[JsValue] =
+    callFunction(GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)) map Json.parse
 
-  private def callFunction(token: String, name: String, args: Map[String, String] = Map()): Future[String] = {
+  private def callFunction(name: String, args: Map[String, String] = Map())(implicit token: Token): Future[String] = {
 
     val builtArgs = {
       val sb = new StringBuilder()
@@ -69,7 +69,7 @@ object Client {
       BASE_REQUEST +
         name +
         builtArgs +
-        s"&wstoken=$token"
+        s"&wstoken=${token.token}"
     ).get().map { response =>
       response.body[String]
     }

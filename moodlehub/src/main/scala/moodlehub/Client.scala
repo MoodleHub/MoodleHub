@@ -39,13 +39,13 @@ object Client {
   }
 
   def getSiteInfo(token: String): Future[JsValue] =
-    callFunction(token, GET_SITE_INFO_FUN).map { s => Json.parse(s) }
+    callFunction(token, GET_SITE_INFO_FUN) map Json.parse
 
   def getUsersCourses(token: String, userId: Int): Future[JsValue] =
-    callFunction(token, GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)).map { s => Json.parse(s) }
+    callFunction(token, GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)) map Json.parse
 
   def getContents(token: String, courseId: Int): Future[JsValue] =
-    callFunction(token, GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)).map { s => Json.parse(s) }
+    callFunction(token, GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)) map Json.parse
 
   private def callFunction(token: String, name: String, args: Map[String, String] = Map()): Future[String] = {
 

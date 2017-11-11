@@ -6,9 +6,11 @@ import play.api.libs.json.{JsArray, JsValue}
 import scala.concurrent.ExecutionContext.Implicits._
 import scala.concurrent.Future
 
-class User(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898"), path: Path = Path("/tmp/test/")) {
+class User(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898"), path: Path = Path("/tmp/test")) {
 
   var enrolledCourses: Array[Course] = _
+
+  new java.io.File(path.path).mkdir()
 
   val siteInfo: Future[JsValue] = Client.getSiteInfo(token)
 

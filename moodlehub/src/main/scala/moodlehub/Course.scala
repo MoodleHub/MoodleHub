@@ -8,6 +8,8 @@ import scala.concurrent.ExecutionContext.Implicits._
 
 class Course(token: Token, path: Path, name: String, courseId: Int) {
 
+  new java.io.File(path.path).mkdir()
+
   var sections: Array[Section] = _
 
   Client.getContents(courseId)(token).onComplete {
@@ -21,5 +23,5 @@ class Course(token: Token, path: Path, name: String, courseId: Int) {
 
 object Course {
   def apply(name: String, courseId: Int)(implicit token: Token, path: Path): Course =
-    new Course(token, Path((path.path + name + "/").replace(' ', '_')), name, courseId)
+    new Course(token, Path(path.path + "/" + name), name, courseId)
 }

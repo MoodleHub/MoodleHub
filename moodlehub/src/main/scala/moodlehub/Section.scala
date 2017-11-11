@@ -20,12 +20,13 @@ class Section(path: Path, obj: JsObject) {
       }
     }
   }
-  println()
+
+  new java.io.File(path.path).mkdir()
 }
 
 object Section {
   def apply(obj: JsObject)(implicit path: Path): Section =
     new Section(Path(
-      path.path + obj.value("name").as[String] + "/"
+      path.path + "/" + obj.value("name").as[String]
     ), obj)
 }

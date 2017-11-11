@@ -33,9 +33,9 @@ class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
 
   private def processCoursesInfo(courses: Array[JsValue]): Unit = {
     courses.map { course =>
-      val shortname = course("shortname")
-      val fullname = course("fullname")
-      val courseId = course("id")
+      val shortname = course("shortname").as[String]
+      val fullname = course("fullname").as[String]
+      val courseId = course("id").as[Int]
 
       Course(s"${shortname}_$fullname", courseId)
     }

@@ -137,3 +137,6 @@ tmp
 
 # Target
 project/target
+
+*.orig
+*.sc

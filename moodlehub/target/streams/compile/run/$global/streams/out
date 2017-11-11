@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mRunning example.Hello [0m
+[0m[[0minfo[0m] [0mRunning moodlehub.Client [0m
 [0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
 [0m[[0mdebug[0m] [0m  Classpath:[0m
 [0m[[0mdebug[0m] [0m	/home/remi/perso/Projects/MoodleHub/moodlehub/target/scala-2.12/classes[0m
@@ -29,8 +29,26 @@
 [0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.8.8.jar[0m
 [0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/bundles/jackson-datatype-jdk8-2.8.8.jar[0m
 [0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/bundles/jackson-datatype-jsr310-2.8.8.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/com.typesafe.netty/netty-reactive-streams-http/jars/netty-reactive-streams-http-1.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/com.typesafe.netty/netty-reactive-streams/jars/netty-reactive-streams-1.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-handler/jars/netty-handler-4.0.33.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-buffer/jars/netty-buffer-4.0.33.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-common/jars/netty-common-4.0.33.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-transport/jars/netty-transport-4.0.33.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-codec/jars/netty-codec-4.0.33.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/remi/.ivy2/cache/io.netty/netty-codec-http/jars/netty-codec-http-4.0.33.Final.jar[0m
 [0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
 [0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
-[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
-[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
-[0m[[0mdebug[0m] [0mExited with code 0[0m
+[0m[[0mdebug[0m] [0mWaiting for thread default-scheduler-1 to terminate.[0m
+[0m[[0mdebug[0m] [0mInterrupting thread default-scheduler-1[0m
+[0m[[0mdebug[0m] [0m	Interrupted default-scheduler-1[0m
+[0m[[0mdebug[0m] [0mInterrupting thread Thread-1[0m
+[0m[[0mdebug[0m] [0m	Interrupted Thread-1[0m
+[0m[[0mdebug[0m] [0mInterrupting thread default-akka.actor.default-dispatcher-4[0m
+[0m[[0mdebug[0m] [0m	Interrupted default-akka.actor.default-dispatcher-4[0m
+[0m[[0mdebug[0m] [0mInterrupting thread default-akka.actor.default-dispatcher-3[0m
+[0m[[0mdebug[0m] [0m	Interrupted default-akka.actor.default-dispatcher-3[0m
+[0m[[0mdebug[0m] [0mInterrupting thread default-akka.actor.default-dispatcher-2[0m
+[0m[[0mdebug[0m] [0m	Interrupted default-akka.actor.default-dispatcher-2[0m
+[0m[[0mdebug[0m] [0mInterrupting thread default-akka.actor.default-dispatcher-5[0m
+[0m[[0mdebug[0m] [0m	Interrupted default-akka.actor.default-dispatcher-5[0m

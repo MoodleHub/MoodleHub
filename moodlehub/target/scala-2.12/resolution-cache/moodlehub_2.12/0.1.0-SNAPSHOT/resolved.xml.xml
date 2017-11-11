@@ -4,7 +4,7 @@
 		module="moodlehub_2.12"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20171111140653"
+		publication="20171111143250"
 	>
 		<description>
 		MoodleHub

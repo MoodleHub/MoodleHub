@@ -1,11 +1,11 @@
 package moodlehub
 
-class Course(name: String, courseId: String) {
+class Course(name: String, courseId: Int) {
 
 
 
 }
 
 object Course {
-  def apply(name: String, courseId: String): Course = new Course(name, courseId)
+  def apply(name: String, courseId: Int): Course = new Course(name, courseId)
 }

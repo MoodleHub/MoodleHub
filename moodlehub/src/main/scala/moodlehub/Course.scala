@@ -2,7 +2,7 @@ package moodlehub
 
 class Course(name: String, courseId: String) {
 
-  
+
 
 }
 

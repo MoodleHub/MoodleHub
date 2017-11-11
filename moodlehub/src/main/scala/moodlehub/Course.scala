@@ -14,7 +14,7 @@ class Course(token: Token, path: Path, name: String, courseId: Int) {
 
   Client.getContents(courseId)(token).onComplete {
     case Success(s) => sections = s.as[Array[JsValue]].map{ section =>
-      Section(section.as[JsObject])(path)
+      Section(section.as[JsObject])(token, path)
     }
     case Failure(e) => throw e
   }

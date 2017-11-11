@@ -6,7 +6,7 @@ import java.io.File
 
 object FileManager {
 
-  def fileDownloader(url: String, filename: String) = {
-    new URL(url) #> new File(filename) !!
+  def fileDownloader(url: String, filename: String)(implicit token: Token) = {
+    new URL(s"$url&token=${token.token}") #> new File(filename) !!
   }
 }

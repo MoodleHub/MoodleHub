@@ -59,12 +59,6 @@ object Client {
       sb.toString
     }
 
-    println(BASE_REQUEST +
-      name +
-      builtArgs +
-      s"&wstoken=$token"
-    )
-
     wsClient.url(
       BASE_REQUEST +
         name +

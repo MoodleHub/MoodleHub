@@ -6,17 +6,12 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws._
 import play.api.libs.ws.ahc._
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-import scala.util.{Failure, Success}
+import scala.concurrent.Future
 
 object Client {
 
   import DefaultBodyReadables._
   import scala.concurrent.ExecutionContext.Implicits._
-
-
-  private var stopped = false
 
   // Create Akka system for thread and streaming management
   implicit val system: ActorSystem = ActorSystem()
@@ -29,7 +24,6 @@ object Client {
 
   private final val BASE_URL = "https://moodle.epfl.ch/webservice/rest/server.php"
   private final val FORMAT = "json"
-  private final val TOKEN = "6aca2ab143095b1e8498c6e8c3364898"
   private final val USERID = "userid"
   private final val COURSEID = "courseid"
 
@@ -37,42 +31,23 @@ object Client {
   private final val GET_USERS_COURSES_FUN = "core_enrol_get_users_courses"
   private final val GET_CONTENTS_FUN = "core_course_get_contents"
 
-  private final val BASE_REQUEST = s"$BASE_URL?moodlewsrestformat=$FORMAT&wstoken=$TOKEN&wsfunction="
+  private final val BASE_REQUEST = s"$BASE_URL?moodlewsrestformat=$FORMAT&wsfunction="
 
   def stop(): Unit = {
     wsClient.close()
     system.terminate()
-    stopped = true
   }
 
-  def getSiteInfo(): Unit = {
-    callFunction(GET_SITE_INFO_FUN).onComplete {
-      case Success(s) =>
-        val json = Json.parse(s)
-        println(json)
-      case Failure(e) => throw e
-    }
-  }
+  def getSiteInfo(implicit token: String): Future[JsValue] =
+    callFunction(token, GET_SITE_INFO_FUN).map { s => Json.parse(s) }
 
-  def getUsersCourses(userId: Int): Unit = {
-    callFunction(GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)).onComplete {
-      case Success(s) =>
-        val json = Json.parse(s)
-        println(json)
-      case Failure(e) => throw e
-    }
-  }
+  def getUsersCourses(implicit token: String, userId: Int): Future[JsValue] =
+    callFunction(token, GET_USERS_COURSES_FUN, Map(USERID -> userId.toString)).map { s => Json.parse(s) }
 
-  def getContents(courseId: Int): Unit = {
-    callFunction(GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)).onComplete {
-      case Success(s) =>
-        val json = Json.parse(s)
-        println(json)
-      case Failure(e) => throw e
-    }
-  }
+  def getContents(implicit token: String, courseId: Int): Future[JsValue] =
+    callFunction(token, GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)).map { s => Json.parse(s) }
 
-  private def callFunction(name: String, args: Map[String, String] = Map()): Future[String] = {
+  private def callFunction(token: String, name: String, args: Map[String, String] = Map()): Future[String] = {
 
     val builtArgs = {
       val sb = new StringBuilder()
@@ -86,18 +61,18 @@ object Client {
 
     println(BASE_REQUEST +
       name +
-      builtArgs
+      builtArgs +
+      s"&wstoken=$token"
     )
 
     wsClient.url(
       BASE_REQUEST +
         name +
-        builtArgs
+        builtArgs +
+        s"&wstoken=$token"
     ).get().map { response =>
       response.body[String]
-    }.
-      andThen { case _ => wsClient.close() }.
-      andThen { case _ => system.terminate() }
+    }
   }
 
 }

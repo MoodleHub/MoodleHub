@@ -15,6 +15,7 @@ object Client {
   import DefaultBodyReadables._
   import scala.concurrent.ExecutionContext.Implicits._
 
+
   private var stopped = false
 
   // Create Akka system for thread and streaming management

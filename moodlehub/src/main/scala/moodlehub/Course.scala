@@ -1,0 +1,5 @@
+package moodlehub
+
+class Course {
+
+}

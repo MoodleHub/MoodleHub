@@ -6,6 +6,7 @@ import play.api.libs.ws._
 import play.api.libs.ws.ahc._
 
 import scala.concurrent.Future
+import scala.util.{Success, Failure}
 
 object Client {
   import DefaultBodyReadables._
@@ -14,9 +15,6 @@ object Client {
   def main(args: Array[String]): Unit = {
     // Create Akka system for thread and streaming management
     implicit val system: ActorSystem = ActorSystem()
-    system.registerOnTermination {
-      System.exit(0)
-    }
     implicit val materializer: ActorMaterializer = ActorMaterializer()
 
     // Create the standalone WS client
@@ -24,11 +22,9 @@ object Client {
     // "AhcWSClientConfigFactory.forConfig(ConfigFactory.load, this.getClass.getClassLoader)"
     val wsClient = StandaloneAhcWSClient()
 
-    call(wsClient)
+    val x = call(wsClient)
       .andThen { case _ => wsClient.close() }
       .andThen { case _ => system.terminate() }
-
-    wsClient.close()
   }
 
   def call(wsClient: StandaloneWSClient): Future[Unit] = {
@@ -36,7 +32,6 @@ object Client {
       val statusText: String = response.statusText
       val body = response.body[String]
       println(s"Got a response $statusText")
-      println(s"Body : $body")
     }
   }
 }

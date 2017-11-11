@@ -109,34 +109,30 @@
         <subPane>
           <expand>
             <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="moodleHub" type="b2602c69:ProjectViewProjectNode" />
               <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
               <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="moodleHub" type="b2602c69:ProjectViewProjectNode" />
               <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="moodleHub" type="b2602c69:ProjectViewProjectNode" />
               <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="moodleHub" type="b2602c69:ProjectViewProjectNode" />
               <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="scala" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="MoodleHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="moodleHub" type="b2602c69:ProjectViewProjectNode" />
               <item name="moodlehub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
@@ -431,7 +427,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/build.properties">
+    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -445,7 +441,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/example/Hello.scala">
+    <entry file="file://$PROJECT_DIR$/project/Dependencies.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />

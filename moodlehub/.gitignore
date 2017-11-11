@@ -129,3 +129,9 @@ server.pid
 # DS_STORE
 *.DS_STORE*
 
+#data
+data
+tmp
+
+# Target
+project/target

@@ -3,7 +3,7 @@ package moodlehub
 import play.api.libs.json.{JsArray, JsObject, JsValue}
 import scala.collection.Map
 
-class Section(obj: JsObject) {
+class Section(path: Path, obj: JsObject) {
   private val value = obj.value
   private val name = value("name").as[String]
   private val summary = value("summary").as[String]
@@ -15,7 +15,9 @@ class Section(obj: JsObject) {
     val contents = module("contents").as[JsArray].value
     contents.foreach { file =>
       val fileMap = file.as[JsObject].value
-      if(fileMap("type").as[String] == "file") println(fileMap("filename"))
+      if(fileMap("type").as[String] == "file") {
+
+      }
     }
   }
   println()

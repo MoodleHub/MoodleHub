@@ -6,7 +6,7 @@ import play.api.libs.json.{JsArray, JsValue}
 import scala.concurrent.ExecutionContext.Implicits._
 import scala.concurrent.Future
 
-class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
+class User(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898"), path: Path = Path("/tmp/test/")) {
 
   var enrolledCourses: Array[Course] = _
 
@@ -21,7 +21,7 @@ class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
     val username = value("username").as[String]
     val userid = value("userid").as[Int]
 
-    val coursesInfo: Future[JsValue] = Client.getUsersCourses(token, userid)
+    val coursesInfo: Future[JsValue] = Client.getUsersCourses(userid)(token)
 
     coursesInfo.onComplete {
       case Success(s) => enrolledCourses = processCoursesInfo(s.as[Array[JsValue]])
@@ -35,12 +35,12 @@ class User(token: String = "6aca2ab143095b1e8498c6e8c3364898") {
       val fullname = course("fullname").as[String]
       val courseId = course("id").as[Int]
 
-      Course(token, s"${shortname}_$fullname", courseId)
+      Course(s"${shortname}_$fullname", courseId)(token, path)
     }
   }
 
 }
 
 object User {
-  def apply(token: String = "6aca2ab143095b1e8498c6e8c3364898"): User = new User(token)
+  def apply(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898")): User = new User(token)
 }

@@ -6,7 +6,7 @@ import scala.collection.Map
 class Section(token: Token, coursePath: Path, obj: JsObject) {
   private val value = obj.value
   private val name = value("name").as[String]
-  private val path = coursePath.path + "/" + name
+  private val path = coursePath + "/" + util.formatString(name)
   new java.io.File(path).mkdir()
   private val summary = value("summary").as[String]
   private val modules = value("modules").as[JsArray].value
@@ -18,7 +18,7 @@ class Section(token: Token, coursePath: Path, obj: JsObject) {
     contents.foreach { file =>
       val fileMap = file.as[JsObject].value
       if(fileMap("type").as[String] == "file") {
-        val filename = path + "/" + fileMap("filename").as[String]
+        val filename = path + "/" + util.formatString(fileMap("filename").as[String])
         val fileurl = fileMap("fileurl").as[String]
         FileManager.fileDownloader(fileurl, filename)(token)
       }

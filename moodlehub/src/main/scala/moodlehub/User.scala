@@ -10,7 +10,9 @@ class User(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898"), path: Path 
 
   var enrolledCourses: Array[Course] = _
 
-  new java.io.File(path.path).mkdir()
+  new java.io.File(path.toString).mkdir()
+
+  println(path)
 
   val siteInfo: Future[JsValue] = Client.getSiteInfo(token)
 

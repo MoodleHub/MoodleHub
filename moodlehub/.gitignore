@@ -129,3 +129,6 @@ server.pid
 # DS_STORE
 *.DS_STORE*
 
+#data
+data
+

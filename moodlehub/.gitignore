@@ -131,4 +131,7 @@ server.pid
 
 #data
 data
+tmp
 
+# Target
+project/target

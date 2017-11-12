@@ -2,6 +2,7 @@ package moodlehub
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
+import moodlehub.GUI.SceneController
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws._
 import play.api.libs.ws.ahc._
@@ -35,12 +36,13 @@ object Client {
 
   var stopped = false
 
-  def stop(): Unit = {
+  def stop(): Boolean = {
     if(!stopped) {
-      println("stopping")
       wsClient.close()
+      stopped = true
+      return true
     }
-    stopped = true
+    false
   }
 
   def getSiteInfo(implicit token: Token): Future[JsValue] =

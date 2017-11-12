@@ -59,7 +59,7 @@ class User(token: Token, moodleHubPath: Path, sceneController: SceneController) 
   def notified(by: Course): Unit = {
     subjects = subjects.filter(_ == by)
     if(subjects.isEmpty) {
-      Client.stop()
+      if(Client.stop()) log("Done!")
     }
   }
 

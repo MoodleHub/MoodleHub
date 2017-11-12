@@ -1,15 +1,17 @@
 package moodlehub.moodleElements
 
-import moodlehub.GUI.scenePresenter
+import moodlehub.GUI.{SceneController, scenePresenter}
 import moodlehub.{FileManager, Path, Token}
 
 import scalafx.scene.control.TextArea
 
-abstract class MoodleElement(token: Token, path: Path, console: TextArea) {
+abstract class MoodleElement(token: Token, path: Path, sceneController: SceneController) {
 
   FileManager.createDirectory(path)
 
-  def log(str: String) = console.appendText(str)
+  def log(str: String) = {
+    if(sceneController != null) sceneController.log(str)
+  }
 
 }
 

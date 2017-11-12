@@ -19,6 +19,12 @@ object FileManager {
     new File(path.path).mkdir()
   }
 
+  def fileMissing(filepath: Path): Boolean = {
+    val file = new File(filepath.path)
+
+    !file.exists()
+  }
+
   def getTimeStamps(section: Section): JsObject = {
     val tsPath = section.newPath add TIMESTAMPS
     val file = new File(tsPath.path)

@@ -8,6 +8,9 @@ object Main {
   def main(args: Array[String]): Unit = {
     val token = Token(scala.io.Source.fromFile(new File("data/token")).getLines.mkString)
 //    User(token)
+    User(token, sceneController = null)
+
+    Client.system.terminate()
   }
 
 }

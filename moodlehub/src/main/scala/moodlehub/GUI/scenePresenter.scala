@@ -17,14 +17,17 @@ class scenePresenter(val launchButton: Button,
                      val password: TextField,
                      val console: TextArea) {
 
+
   var selected: File = _
+
+  val sceneController = new SceneController(console)
 
 //  val scene : moodlehub.GUI.scenePresenter = this
 
   def launch(event: ActionEvent) = {
     val token = Token(scala.io.Source.fromFile(new File("data/token")).getLines.mkString)
-    User(token, Path(selected.getAbsolutePath), this.console)
-    log("launched\n")
+    User(token, Path(selected.getAbsolutePath), sceneController)
+    sceneController.clear().log("launched\n")
   }
 
   def findDir(event: ActionEvent) = {
@@ -36,9 +39,19 @@ class scenePresenter(val launchButton: Button,
     selected = dirChooser.showDialog(GUI.stage)
   }
 
+
+
+}
+
+class SceneController(val console: TextArea){
+
   def log(str: String) = {
+    if(console.length > 100) clear()
     console.appendText(str + "\n")
   }
 
-
+  def clear() = {
+    console.clear()
+    this
+  }
 }

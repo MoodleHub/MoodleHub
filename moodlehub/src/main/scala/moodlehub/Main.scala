@@ -1,10 +1,12 @@
 package moodlehub
 
+import java.io.{File, FileInputStream}
+
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val user = User()
-//    println(FileManager.instantiateTimeStamps(Path("/tmp/test/.timestamps.json")))
+    val token = Token(scala.io.Source.fromFile(new File("data/token")).getLines.mkString)
+    User(token)
   }
 
 }

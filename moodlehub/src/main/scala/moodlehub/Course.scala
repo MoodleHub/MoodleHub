@@ -2,7 +2,6 @@ package moodlehub
 
 import play.api.libs.json.{JsArray, JsObject, JsValue}
 
-import scala.concurrent.Future
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits._
 

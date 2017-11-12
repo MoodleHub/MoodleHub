@@ -47,5 +47,5 @@ class User(token: Token, moodleHubPath: Path = Path("/tmp/test")) {
 }
 
 object User {
-  def apply(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898")): User = new User(token)
+  def apply(token: Token = Token("6aca2ab143095b1e8498c6e8c3364898"), path: Path = Path("/tmp/test")): User = new User(token, path)
 }

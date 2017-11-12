@@ -1,16 +1,19 @@
 package moodlehub.moodleElements
 
 import moodlehub._
+import moodlehub.observer.{Observer}
 import play.api.libs.json.JsValue
 
 import scala.concurrent.ExecutionContext.Implicits._
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodleHubPath) {
+class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodleHubPath) { self =>
 
-  var enrolledCourses: Array[Course] = _
+  var enrolledCourses: Array[Course] = Array[Course]()
   val path: Path = moodleHubPath
+
+  private var subjects = Array[Course]()
 
   val siteInfo: Future[JsValue] = Client.getSiteInfo(token)
 
@@ -29,7 +32,9 @@ class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodl
     val coursesInfo: Future[JsValue] = Client.getUsersCourses(userid)(token)
 
     coursesInfo.onComplete {
-      case Success(s) => enrolledCourses = processCoursesInfo(s.as[Array[JsValue]], userPath)
+      case Success(s) =>
+        enrolledCourses = processCoursesInfo(s.as[Array[JsValue]], userPath)
+        subjects = enrolledCourses.clone()
       case Failure(e) => throw e
     }
   }
@@ -40,9 +45,21 @@ class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodl
       val fullname = course("fullname").as[String]
       val courseId = course("id").as[Int]
 
-      Course(s"${shortname}_$fullname", courseId)(token, userPath)
+      val c: Course = Course(s"${shortname}_$fullname", courseId)(token, userPath)
+      c.addObserver(self)
+
+      c
     }
   }
+
+  def notified(by: Course): Unit = {
+    println(subjects)
+    subjects = subjects.filter(_ == by)
+    if(subjects.isEmpty) {
+      Client.stop()
+    }
+  }
+
 }
 
 object User {

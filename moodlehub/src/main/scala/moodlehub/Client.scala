@@ -20,7 +20,7 @@ object Client {
   // Create the standalone WS client
   // no argument defaults to a AhcWSClientConfig created from
   // "AhcWSClientConfigFactory.forConfig(ConfigFactory.load, this.getClass.getClassLoader)"
-  val wsClient = StandaloneAhcWSClient()
+  var wsClient = StandaloneAhcWSClient()
 
   private final val BASE_URL = "https://moodle.epfl.ch/webservice/rest/server.php"
   private final val FORMAT = "json"
@@ -33,9 +33,14 @@ object Client {
 
   private final val BASE_REQUEST = s"$BASE_URL?moodlewsrestformat=$FORMAT&wsfunction="
 
+  var stopped = false
+
   def stop(): Unit = {
-    wsClient.close()
-    system.terminate()
+    if(!stopped) {
+      println("stopping")
+      wsClient.close()
+    }
+    stopped = true
   }
 
   def getSiteInfo(implicit token: Token): Future[JsValue] =
@@ -48,6 +53,9 @@ object Client {
     callFunction(GET_CONTENTS_FUN, Map(COURSEID -> courseId.toString)) map Json.parse
 
   private def callFunction(name: String, args: Map[String, String] = Map())(implicit token: Token): Future[String] = {
+
+    if(stopped)
+      wsClient = StandaloneAhcWSClient()
 
     val builtArgs = {
       val sb = new StringBuilder()

@@ -4,12 +4,15 @@ import moodlehub._
 import play.api.libs.json.{JsArray, JsObject, JsValue}
 
 import scala.collection.Map
+import scala.concurrent.Future
 
-class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implicit token: Token) extends MoodleElement(token, newPath) {
-  private val name = value("name").as[String]
+import scala.concurrent.ExecutionContext.Implicits._
 
+class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implicit token: Token) extends MoodleElement(token, newPath) { self =>
   private val summary = value("summary").as[String]
   private val modules = value("modules").as[JsArray].value
+
+  private var course: Course = _
 
   private val fileModules: List[Map[String, JsValue]] =
     modules.filter(_.as[JsObject].value("modplural").as[String] == "Files")
@@ -37,11 +40,13 @@ class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implic
     if(change){
       FileManager.downloadFile(fileurl, filepath)(token)
     }
+
+    Future(course.notified(self))
   }
 
+  def addObserver(observer: Course): Unit = course = observer
+
 }
-
-
 
 object Section {
   def apply(value: Map[String, JsValue])(implicit token: Token, path: Path): Section =

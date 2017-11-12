@@ -2,7 +2,8 @@ package moodlehub.GUI
 
 import java.io.File
 
-import moodlehub.{Path, User}
+import moodlehub.Path
+import moodlehub.moodleElements.User
 
 import scalafx.event.ActionEvent
 import scalafx.scene.control.{Button, TextField}

@@ -1,14 +1,13 @@
-package moodlehub
+package moodlehub.moodleElements
 
+import moodlehub._
 import play.api.libs.json.{JsArray, JsObject, JsValue}
+
 import scala.collection.Map
 
-class Section(token: Token, val coursePath: Path, obj: JsObject) {
-  private val value = obj.value
+class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implicit token: Token) extends MoodleElement(token, newPath) {
   private val name = value("name").as[String]
 
-  val path: Path = coursePath add util.formatString(name)
-  FileManager.createDirectory(path)
   private val summary = value("summary").as[String]
   private val modules = value("modules").as[JsArray].value
 
@@ -28,7 +27,7 @@ class Section(token: Token, val coursePath: Path, obj: JsObject) {
 
   private def processFileMap(fileMap: Map[String, JsValue]): Unit = {
     val filename = fileMap("filename").as[String]
-    val filepath = path add filename
+    val filepath = newPath add filename
     val fileurl = fileMap("fileurl").as[String]
 
     val filesize = fileMap("filesize").as[Int]
@@ -45,6 +44,7 @@ class Section(token: Token, val coursePath: Path, obj: JsObject) {
 
 
 object Section {
-  def apply(obj: JsObject)(implicit token: Token, path: Path): Section =
-    new Section(token, path, obj)
+  def apply(value: Map[String, JsValue])(implicit token: Token, path: Path): Section =
+    new Section(value, path, path add util.formatString(value("name").as[String]))
+
 }

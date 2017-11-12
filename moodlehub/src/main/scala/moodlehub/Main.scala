@@ -1,6 +1,7 @@
 package moodlehub
 
-import java.io.{File, FileInputStream}
+import java.io.File
+import moodleElements.User
 
 object Main {
 

@@ -4,6 +4,7 @@ import sys.process._
 import java.net.URL
 import java.io.{File, FileInputStream, FileOutputStream}
 
+import moodlehub.moodleElements.Section
 import play.api.libs.json._
 
 object FileManager {

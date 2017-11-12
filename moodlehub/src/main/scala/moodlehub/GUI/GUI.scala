@@ -2,7 +2,7 @@ package moodlehub.GUI
 
 import java.io.IOException
 
-import moodlehub.{Path, User}
+import moodlehub.Path
 import java.io.IOException
 import java.net.URL
 

@@ -1,15 +1,13 @@
 package moodlehub
 
+import Includes._
+
 case class Path(path: String) {
 
-  def add (str: String) : Path = {
-    val sb = new StringBuilder(path)
-    if(str.length > 0) {
-      if(str(0) != '/') {sb.append('/')}
-    }
-    sb.append(str)
-    Path(sb.toString)
-  }
+  def add(str: String): Path =
+    path + appendSlash(path) + str + appendSlash(str)
+
+  private def appendSlash(s: String): String = if(s.last != '/') "/" else ""
 
 
   lazy val format: String = util.formatString(path)

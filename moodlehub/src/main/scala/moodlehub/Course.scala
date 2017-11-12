@@ -23,5 +23,5 @@ class Course(token: Token, path: Path, courseId: Int) {
 
 object Course {
   def apply(name: String, courseId: Int)(implicit token: Token, path: Path): Course =
-    new Course(token, path add name, courseId)
+    new Course(token, path add util.formatString(name), courseId)
 }

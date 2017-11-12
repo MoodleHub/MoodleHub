@@ -11,4 +11,8 @@ case class Path(path: String) {
     Path(sb.toString)
   }
 
+
+  lazy val format: String = util.formatString(path)
+
+  override def toString: String = format
 }

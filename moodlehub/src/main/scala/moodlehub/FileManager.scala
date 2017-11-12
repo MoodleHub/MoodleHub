@@ -8,8 +8,8 @@ import play.api.libs.json._
 
 object FileManager {
 
-  def fileDownloader(url: String, filename: String)(implicit token: Token) = {
-    new URL(s"$url&token=${token.token}") #> new File(filename) !!
+  def downloadFile(url: String, filename: Path)(implicit token: Token) = {
+    new URL(s"$url&token=${token.token}") #> new File(filename.path) !!
   }
 
   def createDirectory(path: Path) = {

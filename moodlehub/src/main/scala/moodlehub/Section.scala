@@ -7,7 +7,7 @@ class Section(token: Token, val coursePath: Path, obj: JsObject) {
   private val value = obj.value
   private val name = value("name").as[String]
 
-  private val path: Path = coursePath add name
+  private val path: Path = coursePath add util.formatString(name)
   FileManager.createDirectory(path)
   private val summary = value("summary").as[String]
   private val modules = value("modules").as[JsArray].value
@@ -19,9 +19,9 @@ class Section(token: Token, val coursePath: Path, obj: JsObject) {
     contents.foreach { file =>
       val fileMap = file.as[JsObject].value
       if(fileMap("type").as[String] == "file") {
-        val filename = (path add fileMap("filename").as[String]).path
+        val filename = path add fileMap("filename").as[String]
         val fileurl = fileMap("fileurl").as[String]
-        FileManager.fileDownloader(fileurl, filename)(token)
+        FileManager.downloadFile(fileurl, filename)(token)
       }
     }
   }

@@ -42,12 +42,14 @@ class User(token: Token, moodleHubPath: Path, sceneController: SceneController) 
   }
 
   private def processCoursesInfo(courses: Array[JsValue], userPath: Path): Array[Course] = {
+    println("Course length is: " + courses.length)
     courses.map { course =>
       val shortname = course("shortname").as[String]
       val fullname = course("fullname").as[String]
       val courseId = course("id").as[Int]
 
       val c: Course = Course(s"${shortname}_$fullname", courseId, sceneController)(token, userPath)
+      log(s"Syncing course $shortname\n")
       c.addObserver(self)
 
       c
@@ -66,5 +68,5 @@ class User(token: Token, moodleHubPath: Path, sceneController: SceneController) 
 object User {
   def apply(token: Token, path: Path = DEFAULT_PATH, sceneController: SceneController): User = new User(token, path, sceneController)
 
-  private val DEFAULT_PATH: Path = Path("/tmp/moodleHub")
+  val DEFAULT_PATH: Path = Path("/tmp/moodleHub")
 }

@@ -10,7 +10,7 @@ import scalafx.scene.control.TextArea
 
 import Includes._
 
-class Course(val name: String, courseId: Int, path: Path, sceneController: SceneController)(implicit val token: Token) extends MoodleElement(token, path, sceneController) { self =>
+class Course(val name: String, val courseId: Int, path: Path, sceneController: SceneController)(implicit val token: Token) extends MoodleElement(token, path, sceneController) { self =>
 
   var sections: Array[Section] = Array[Section]()
   private var user: User = _
@@ -29,7 +29,6 @@ class Course(val name: String, courseId: Int, path: Path, sceneController: Scene
   def addObserver(observer: User): Unit = user = observer
 
   def notified(by: Section): Unit = {
-    by.log(s"Section ${by.path} synced")
     subjects = subjects.filter(_ == by)
     if(subjects.isEmpty) {
       user.notified(self)

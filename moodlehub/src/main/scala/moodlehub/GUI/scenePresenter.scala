@@ -10,6 +10,8 @@ import scalafx.scene.control.{Button, TextArea, TextField}
 import scalafx.stage.DirectoryChooser
 import scalafxml.core.macros.sfxml
 
+import moodlehub.Includes._
+
 @sfxml
 class scenePresenter(val launchButton: Button,
                      val dirButton: Button,
@@ -18,7 +20,7 @@ class scenePresenter(val launchButton: Button,
                      val console: TextArea) {
 
 
-  var selected: File = _
+  var selected: File = new File(User.DEFAULT_PATH)
 
   val sceneController = new SceneController(console)
 
@@ -37,6 +39,7 @@ class scenePresenter(val launchButton: Button,
     }
 
     selected = dirChooser.showDialog(GUI.stage)
+//    sceneController.log(selected.getAbsolutePath)
   }
 
 
@@ -45,8 +48,9 @@ class scenePresenter(val launchButton: Button,
 
 class SceneController(val console: TextArea){
 
+  log("\n")
+
   def log(str: String) = {
-    if(console.length > 100) clear()
     console.appendText(str + "\n")
   }
 

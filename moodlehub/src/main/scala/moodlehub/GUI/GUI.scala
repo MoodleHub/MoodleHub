@@ -13,32 +13,8 @@ import scalafx.scene.Scene
 import scalafxml.core.{FXMLView, NoDependencyResolver}
 
 object GUI extends JFXApp {
-/*
 
-  stage = new PrimaryStage {
-    title = "MoodleHub GUI"
-    scene = new Scene {
-      fill = White
-      content = new HBox {
-        padding = Insets(20)
-        children = Seq(
-          new Button{
-            text = "Download moodle"
-            defaultButton = true
-          }
-        )
-      }
-    }
-  }
-
-  val a = new DirectoryChooser{
-    title = "test"
-    initialDirectory = new java.io.File("/tmp/test/")
-  }
-  val selected = a.showDialog(stage)
-  User(path = Path(selected.getAbsolutePath))*/
-
-  val resource: URL = getClass.getResource("/scene.fxml")
+  val resource: URL = getClass.getResource("/leo.fxml")
   if (resource == null) {
     throw new IOException("Cannot load resource: scene.fxml")
   }

@@ -1,11 +1,13 @@
 package moodlehub.moodleElements
 
+import moodlehub.GUI.scenePresenter
 import moodlehub._
 import play.api.libs.json.{JsArray, JsObject, JsValue}
 
 import scala.collection.Map
+import scalafx.scene.control.TextArea
 
-class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implicit token: Token) extends MoodleElement(token, newPath) {
+class Section(value: Map[String, JsValue], val path: Path, val newPath: Path, console: TextArea)(implicit token: Token) extends MoodleElement(token, newPath, console) {
   private val name = value("name").as[String]
 
   private val summary = value("summary").as[String]
@@ -36,6 +38,7 @@ class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implic
     val change = FileManager.addTimeStamp(this, filename, lastMod)
     if(change){
       FileManager.downloadFile(fileurl, filepath)(token)
+      log(s"$filename downloaded\n")
     }
   }
 
@@ -44,7 +47,7 @@ class Section(value: Map[String, JsValue], val path: Path, newPath: Path)(implic
 
 
 object Section {
-  def apply(value: Map[String, JsValue])(implicit token: Token, path: Path): Section =
-    new Section(value, path, path add util.formatString(value("name").as[String]))
+  def apply(value: Map[String, JsValue], console: TextArea)(implicit token: Token, path: Path): Section =
+    new Section(value, path, path add util.formatString(value("name").as[String]), console)
 
 }

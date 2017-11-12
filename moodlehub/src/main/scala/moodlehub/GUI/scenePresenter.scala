@@ -2,34 +2,42 @@ package moodlehub.GUI
 
 import java.io.File
 
-import moodlehub.Path
+import moodlehub.{Path, Token}
 import moodlehub.moodleElements.User
 
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{Button, TextField}
+import scalafx.scene.control.{Button, TextArea, TextField}
 import scalafx.stage.DirectoryChooser
 import scalafxml.core.macros.sfxml
 
 @sfxml
-class scenePresenter(private val launchButton: Button,
-                     private val dirButton: Button,
-                     private val login: TextField,
-                     private val password: TextField) {
+class scenePresenter(val launchButton: Button,
+                     val dirButton: Button,
+                     val login: TextField,
+                     val password: TextField,
+                     val console: TextArea) {
 
   var selected: File = _
 
+//  val scene : moodlehub.GUI.scenePresenter = this
 
   def launch(event: ActionEvent) = {
-    User(path = Path(selected.getAbsolutePath))
+    val token = Token(scala.io.Source.fromFile(new File("data/token")).getLines.mkString)
+    User(token, Path(selected.getAbsolutePath), this.console)
+    log("launched\n")
   }
 
   def findDir(event: ActionEvent) = {
     val dirChooser = new DirectoryChooser{
       title = "MoodleHub Directory location"
-      initialDirectory = new java.io.File("/tmp/test/")
+      initialDirectory = new java.io.File("/tmp")
     }
 
     selected = dirChooser.showDialog(GUI.stage)
+  }
+
+  def log(str: String) = {
+    console.appendText(str + "\n")
   }
 
 

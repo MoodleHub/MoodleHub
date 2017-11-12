@@ -20,7 +20,7 @@ object FileManager {
   }
 
   def getTimeStamps(section: Section): JsObject = {
-    val tsPath = section.path add TIMESTAMPS
+    val tsPath = section.newPath add TIMESTAMPS
     val file = new File(tsPath.path)
     if(!file.exists) {
       // create dummy file
@@ -44,7 +44,7 @@ object FileManager {
     */
   def addTimeStamp(section: Section, filename: String, stamp: Int): Boolean = {
     val json = getTimeStamps(section)
-    val tsPath = section.path add TIMESTAMPS
+    val tsPath = section.newPath add TIMESTAMPS
     val timeStamp = json.value.get(filename) match {
       case Some(jsValue) => jsValue.as[Int]
       case None => -1

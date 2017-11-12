@@ -1,13 +1,15 @@
 package moodlehub.moodleElements
 
+import moodlehub.GUI.scenePresenter
 import moodlehub._
 import play.api.libs.json.JsValue
 
 import scala.concurrent.ExecutionContext.Implicits._
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
+import scalafx.scene.control.TextArea
 
-class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodleHubPath) {
+class User(token: Token, moodleHubPath: Path, console: TextArea) extends MoodleElement(token, moodleHubPath, console) {
 
   var enrolledCourses: Array[Course] = _
   val path: Path = moodleHubPath
@@ -40,14 +42,13 @@ class User(token: Token, moodleHubPath: Path) extends MoodleElement(token, moodl
       val fullname = course("fullname").as[String]
       val courseId = course("id").as[Int]
 
-      Course(s"${shortname}_$fullname", courseId)(token, userPath)
+      Course(s"${shortname}_$fullname", courseId, console)(token, userPath)
     }
   }
 }
 
 object User {
-  def apply(token: Token = TOKEN, path: Path = DEFAULT_PATH): User = new User(token, path)
+  def apply(token: Token, path: Path = DEFAULT_PATH, console: TextArea): User = new User(token, path, console)
 
-  private val TOKEN: Token = Token("6aca2ab143095b1e8498c6e8c3364898")
   private val DEFAULT_PATH: Path = Path("/tmp/moodleHub/")
 }
